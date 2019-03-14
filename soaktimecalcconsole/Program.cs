@@ -8,7 +8,13 @@ namespace soaktimecalcconsole
         static void Main(string[] args)
         {
             //Variables
-            DateTime currenttime = DateTime.Now;
+
+            //Get time zone and make sure it's local!
+            DateTime localtime = DateTime.Now;
+            string ZoneId = "Pacific Standard Time";
+            TimeZoneInfo timeZoneInfo = System.TimeZoneInfo.FindSystemTimeZoneById(ZoneId);
+            DateTime currenttime = System.TimeZoneInfo.ConvertTime(localtime, System.TimeZoneInfo.Local, timeZoneInfo);
+
             string atheathours;
             string atheatmins;
             string soak;
@@ -30,7 +36,6 @@ namespace soaktimecalcconsole
 
             atheathours = intArray[0].ToString()+intArray[1].ToString();
             atheatmins = intArray[2].ToString() + intArray[3].ToString();
-
 
             Console.WriteLine("Enter soak time:");
             soak = Console.ReadLine();
